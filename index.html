@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Martial arts practice</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2em;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #randomText {
+            font-size: 2.5em;
+            padding: 30px 50px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #randomText:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 15px 25px rgba(0,0,0,0.4);
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.4);
+            background: linear-gradient(90deg, #0072ff, #00c6ff);
+        }
+    </style>
+</head>
+<body>
+    <h1>Note that you do not do what the text says. You pretend to block it/dodge it. Also recommend to stay away from your screen when using this</h1>
+    <div>
+        <div id="randomText">Click the button to show a move</div>
+        <button id="toggleButton" onclick="toggleRandomizing()">Show move</button>
+    </div>
+
+    <script>
+        const texts = [
+            "punch 👊",
+            "kick 🦵",
+            "Nothing, you attack!",
+        ];
+
+        let intervalId = null;
+        let lastIndex = -1;
+
+        function toggleRandomizing() {
+            const button = document.getElementById("toggleButton");
+
+            if (intervalId) {
+                // Stop randomizing
+                clearInterval(intervalId);
+                intervalId = null;
+                button.innerText = "Show move";
+            } else {
+                // Start randomizing immediately
+                updateRandomText();
+                intervalId = setInterval(updateRandomText, 900);
+                button.innerText = "Stop attacks";
+            }
+        }
+
+        function updateRandomText() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * texts.length);
+            } while (randomIndex === lastIndex);
+
+            lastIndex = randomIndex;
+            document.getElementById("randomText").innerText = texts[randomIndex];
+        }
+    </script>
+</body>
+</html>
